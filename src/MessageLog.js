@@ -19,8 +19,8 @@ export class MessageLog extends React.Component<Props> {
     super(props);
     this.list = React.createRef();
     this.lineCount = 20;
-    this.lineWidth = 18;
-    this.charactersPerLine = 62;
+    this.lineWidth = 15;
+    this.charactersPerLine = 38;
   }
 
   render() {

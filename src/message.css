@@ -1,14 +1,16 @@
 .message-row-even {
   background: linear-gradient(#ccc, #bbb);
   word-wrap: break-word;
+  font-family: monospace;
 }
 .message-row-odd {
   background: linear-gradient(#eee, #ddd);
   word-wrap: break-word;
+  font-family: monospace;
 }
 .message-input {
   box-sizing: border-box; /* exclude padding and border from width */
 }
 .message-box {
-  width: 500px;
+  width: 300px;
 }
