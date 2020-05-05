@@ -1,0 +1,6 @@
+.message-row-even {
+  background: linear-gradient(#ccc, #bbb);
+}
+.message-row-odd {
+  background: linear-gradient(#eee, #ddd);
+}
