@@ -1,9 +1,10 @@
 .message-row-even {
   background: linear-gradient(#ccc, #bbb);
-  width: inherit;
+  word-wrap: break-word;
 }
 .message-row-odd {
   background: linear-gradient(#eee, #ddd);
+  word-wrap: break-word;
 }
 .message-input {
   box-sizing: border-box; /* exclude padding and border from width */
