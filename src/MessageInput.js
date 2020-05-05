@@ -18,12 +18,15 @@ export class MessageInput extends React.Component<Props, State> {
 
   render() {
     return (
-      <input 
+      <input
+        className='message-input'  
+        style={{width: "inherit"}}
         type='text'
         value={this.state.currentText}
         onKeyDown={event => this._handleKeyDown(event)}
         onChange={event => this.setState({currentText: event.target.value})}
-      />);
+      />
+    );
   }
 
   _handleKeyDown(e: KeyboardEvent) {

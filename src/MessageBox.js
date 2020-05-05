@@ -16,7 +16,7 @@ export class MessageBox extends React.Component<Props, State> {
 
   render() {
     return (
-      <div>
+      <div className='message-box'>
         <MessageLog messages={this.state.messages}/> 
         <MessageInput onSubmit={(message) => this._handleNewMessage(message) }/>
       </div>
