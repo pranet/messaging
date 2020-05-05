@@ -27,10 +27,18 @@ export class MessageInput extends React.Component<Props, State> {
   }
 
   _handleKeyDown(e: KeyboardEvent) {
-    if (e.key === 'Enter') {
-      this.props.onSubmit(this.state.currentText);
-      this.setState({currentText: ''})
+    if (e.key !== 'Enter') {
+      return;
     }
-  }
+    const str = this.state.currentText;
+    // ignore null / empty / all whitespaces
+    if (str === null || str.match(/^ *$/) !== null) {
+      return;     
+    }
   
+    this.props.onSubmit(this.state.currentText);
+    this.setState({currentText: ''})
+    
+  }
+
 };
