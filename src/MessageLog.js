@@ -10,19 +10,36 @@ type Props = {
 export class MessageLog extends React.Component<Props> {
   
   list: ReactList;
-
+  messages: Array<string>;
+  lineWidth: number;
+  lineCount: number;
+  charactersPerLine: number;
+  
   constructor(props: Props) {
     super(props);
     this.list = React.createRef();
+    this.lineCount = 20;
+    this.lineWidth = 18;
+    this.charactersPerLine = 62;
   }
 
   render() {
+    const line_count_from_user_messages = this.props.messages.map(
+      message => this._getLineCountForMessage(message)
+    ).reduce((result, item) => result + item, 0);
+    const paddingLines = this.lineCount - line_count_from_user_messages;
+    if (paddingLines > 0) {
+      const paddingMessage = '*'.repeat(this.charactersPerLine * paddingLines);
+      this.messages = [paddingMessage].concat(this.props.messages);
+    } else {
+      this.messages = this.props.messages;
+    }
     return (
-      <div style={{overflow: 'auto', maxHeight: 300}}>
+      <div style={{overflow: 'auto', height: this.lineWidth * this.lineCount}}>
         <ReactList
           itemRenderer={this._renderMessageRow}
           itemSizeGetter={this._getItemSize}
-          length={this.props.messages.length}
+          length={this.messages.length}
           type='variable'
           ref={c => this.list = c}
         />
@@ -31,14 +48,15 @@ export class MessageLog extends React.Component<Props> {
   }
 
   componentDidUpdate() {
-    this.list.scrollAround(this.props.messages.length- 1);
+    this.list.scrollAround(this.messages.length - 1);
   }
 
   _getItemSize = (idx: number) => {
-    const len = this.props.messages[idx].length;
-    const ch_per_500_px = 82;
-    const lines = Math.ceil(len / ch_per_500_px);
-    return 18 * (lines);
+    return this.lineWidth * this._getLineCountForMessage(this.messages[idx]);
+  }
+
+  _getLineCountForMessage = (message: string) => {
+    return Math.ceil(message.length / this.charactersPerLine);
   }
 
   _renderMessageRow = (idx: number, key: string) => {
@@ -47,7 +65,7 @@ export class MessageLog extends React.Component<Props> {
         className={'message-row-' + (idx % 2 ? 'odd' : 'even')} 
         key={key}
       >
-        {this.props.messages[idx]}
+        {this.messages[idx]}
       </div>
     );
   }
