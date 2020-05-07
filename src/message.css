@@ -2,11 +2,13 @@
   background: linear-gradient(#ccc, #bbb);
   word-wrap: break-word;
   font-family: monospace;
+  white-space: pre-wrap;
 }
 .message-row-odd {
   background: linear-gradient(#eee, #ddd);
   word-wrap: break-word;
   font-family: monospace;
+  white-space: pre-wrap;
 }
 .message-input {
   box-sizing: border-box; /* exclude padding and border from width */

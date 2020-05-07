@@ -29,7 +29,9 @@ export class MessageLog extends React.Component<Props> {
     ).reduce((result, item) => result + item, 0);
     const paddingLines = this.lineCount - line_count_from_user_messages;
     if (paddingLines > 0) {
-      const paddingMessage = '*'.repeat(this.charactersPerLine * paddingLines);
+      const paddingLineSingle = ' '.repeat(this.charactersPerLine - 1);
+      const paddingLinesMultiple = Array(paddingLines).fill(paddingLineSingle);
+      const paddingMessage = paddingLinesMultiple.join('\n');
       this.messages = [paddingMessage].concat(this.props.messages);
     } else {
       this.messages = this.props.messages;
