@@ -2,6 +2,9 @@
 import React from 'react';
 import {MessageLog} from './MessageLog';
 import {MessageInput} from './MessageInput'
+import socketIOClient from "socket.io-client";
+import Socket from "socket.io-client/lib/socket";
+const ENDPOINT = "http://192.168.1.201:4000";
 
 type Props = {...};
 
@@ -14,6 +17,20 @@ export class MessageBox extends React.Component<Props, State> {
     messages: [],
   };
 
+  socket: Socket = socketIOClient(ENDPOINT);
+
+  constructor(props: Props) {
+    super(props);
+    this.socket.on(
+      'receive_message',
+      message => {
+        this.setState((state, props) => ({
+          messages: state.messages.concat(message),
+        }));
+      }
+    );
+  }
+
   render() {
     return (
       <div className='message-box'>
@@ -24,9 +41,8 @@ export class MessageBox extends React.Component<Props, State> {
   }
 
   _handleNewMessage(message: string) {
-    this.setState((state, props) => ({
-      messages: state.messages.concat(message),
-    }));
+    // send to server
+    this.socket.emit('send_message', message);
   }
 
 };
