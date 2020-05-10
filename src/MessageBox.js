@@ -4,7 +4,7 @@ import { MessageLog } from './MessageLog';
 import { MessageInput } from './MessageInput';
 import socketIOClient from 'socket.io-client';
 import Socket from 'socket.io-client/lib/socket';
-const ENDPOINT = 'http://192.168.1.201:4000';
+const ENDPOINT = 'http://localhost:4000';
 
 type Props = { ... };
 
