@@ -3,15 +3,14 @@ import React from 'react';
 
 type Props = {
   onSubmit: (string) => any,
-  ...,
+  ...
 };
 
 type State = {|
-  currentText: string,  
+  currentText: string,
 |};
 
 export class MessageInput extends React.Component<Props, State> {
-  
   state: State = {
     currentText: '',
   };
@@ -19,12 +18,12 @@ export class MessageInput extends React.Component<Props, State> {
   render() {
     return (
       <input
-        className='message-input'  
-        style={{width: "inherit"}}
-        type='text'
+        className="message-input"
+        style={{ width: 'inherit' }}
+        type="text"
         value={this.state.currentText}
-        onKeyDown={event => this._handleKeyDown(event)}
-        onChange={event => this.setState({currentText: event.target.value})}
+        onKeyDown={(event) => this._handleKeyDown(event)}
+        onChange={(event) => this.setState({ currentText: event.target.value })}
       />
     );
   }
@@ -36,12 +35,10 @@ export class MessageInput extends React.Component<Props, State> {
     const str = this.state.currentText;
     // ignore null / empty / all whitespaces
     if (str === null || str.match(/^ *$/) !== null) {
-      return;     
+      return;
     }
-  
-    this.props.onSubmit(this.state.currentText);
-    this.setState({currentText: ''})
-    
-  }
 
-};
+    this.props.onSubmit(this.state.currentText);
+    this.setState({ currentText: '' });
+  }
+}

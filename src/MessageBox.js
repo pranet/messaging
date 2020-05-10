@@ -1,12 +1,12 @@
 // @flow
 import React from 'react';
-import {MessageLog} from './MessageLog';
-import {MessageInput} from './MessageInput'
-import socketIOClient from "socket.io-client";
-import Socket from "socket.io-client/lib/socket";
-const ENDPOINT = "http://192.168.1.201:4000";
+import { MessageLog } from './MessageLog';
+import { MessageInput } from './MessageInput';
+import socketIOClient from 'socket.io-client';
+import Socket from 'socket.io-client/lib/socket';
+const ENDPOINT = 'http://192.168.1.201:4000';
 
-type Props = {...};
+type Props = { ... };
 
 type State = {|
   messages: Array<string>,
@@ -21,21 +21,18 @@ export class MessageBox extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.socket.on(
-      'receive_message',
-      message => {
-        this.setState((state, props) => ({
-          messages: state.messages.concat(message),
-        }));
-      }
-    );
+    this.socket.on('receive_message', (message) => {
+      this.setState((state, props) => ({
+        messages: state.messages.concat(message),
+      }));
+    });
   }
 
   render() {
     return (
-      <div className='message-box'>
-        <MessageLog messages={this.state.messages}/> 
-        <MessageInput onSubmit={(message) => this._handleNewMessage(message) }/>
+      <div className="message-box">
+        <MessageLog messages={this.state.messages} />
+        <MessageInput onSubmit={(message) => this._handleNewMessage(message)} />
       </div>
     );
   }
@@ -44,5 +41,4 @@ export class MessageBox extends React.Component<Props, State> {
     // send to server
     this.socket.emit('send_message', message);
   }
-
-};
+}
