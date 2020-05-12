@@ -25,7 +25,9 @@ export class MessageBox extends React.Component<Props, State> {
     messages: [],
   };
 
-  socket: Socket = socketIOClient(ENDPOINT);
+  socket: Socket = socketIOClient(ENDPOINT, {
+    query: `username=${this.props.username}`,
+  });
 
   constructor(props: Props) {
     super(props);
