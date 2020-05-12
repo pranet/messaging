@@ -6,10 +6,18 @@ import socketIOClient from 'socket.io-client';
 import Socket from 'socket.io-client/lib/socket';
 const ENDPOINT = 'http://localhost:4000';
 
-type Props = { ... };
+export type Message = {|
+  sender: string,
+  content: string,
+|};
+
+type Props = {
+  username: string,
+  ...
+};
 
 type State = {|
-  messages: Array<string>,
+  messages: Array<Message>,
 |};
 
 export class MessageBox extends React.Component<Props, State> {
@@ -32,13 +40,13 @@ export class MessageBox extends React.Component<Props, State> {
     return (
       <div className="message-box">
         <MessageLog messages={this.state.messages} />
-        <MessageInput onSubmit={(message) => this._handleNewMessage(message)} />
+        <MessageInput onSubmit={(content) => this._handleNewMessage(content)} />
       </div>
     );
   }
 
-  _handleNewMessage(message: string) {
+  _handleNewMessage(content: string) {
     // send to server
-    this.socket.emit('send_message', message);
+    this.socket.emit('send_message', content);
   }
 }

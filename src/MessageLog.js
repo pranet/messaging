@@ -2,14 +2,18 @@
 import React from 'react';
 import ReactList from 'react-list';
 import './message.css';
+import type { Message } from './MessageBox';
+
+const DEFAULT_SENDER: string = '';
+
 type Props = {
-  messages: Array<string>,
+  messages: Array<Message>,
   ...
 };
 
 export class MessageLog extends React.Component<Props> {
   list: ReactList;
-  messages: Array<string>;
+  messages: Array<Message>;
   lineWidth: number;
   lineCount: number;
   charactersPerLine: number;
@@ -30,7 +34,8 @@ export class MessageLog extends React.Component<Props> {
     if (paddingLines > 0) {
       const paddingLineSingle = ' '.repeat(this.charactersPerLine - 1);
       const paddingLinesMultiple = Array(paddingLines).fill(paddingLineSingle);
-      const paddingMessage = paddingLinesMultiple.join('\n');
+      const paddingMessageContent = paddingLinesMultiple.join('\n');
+      const paddingMessage = { sender: '', content: paddingMessageContent };
       this.messages = [paddingMessage].concat(this.props.messages);
     } else {
       this.messages = this.props.messages;
@@ -58,15 +63,24 @@ export class MessageLog extends React.Component<Props> {
     return this.lineWidth * this._getLineCountForMessage(this.messages[idx]);
   };
 
-  _getLineCountForMessage = (message: string) => {
-    return Math.ceil(message.length / this.charactersPerLine);
+  _getLineCountForMessage = (message: Message) => {
+    return Math.ceil(
+      this._getMessageOutput(message).length / this.charactersPerLine
+    );
   };
 
   _renderMessageRow = (idx: number, key: string) => {
     return (
       <div className={'message-row-' + (idx % 2 ? 'odd' : 'even')} key={key}>
-        {this.messages[idx]}
+        {this._getMessageOutput(this.messages[idx])}
       </div>
     );
+  };
+
+  _getMessageOutput = (message: Message) => {
+    if (message.sender === DEFAULT_SENDER) {
+      return message.content;
+    }
+    return `${message.sender}: ${message.content}`;
   };
 }
