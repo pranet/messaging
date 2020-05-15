@@ -2,9 +2,6 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MessageBox } from './MessageBox';
+import { MainView } from './MainView';
 
-ReactDOM.render(
-  <MessageBox username="pranet" />,
-  document.getElementById('root')
-);
+ReactDOM.render(<MainView />, document.getElementById('root'));
