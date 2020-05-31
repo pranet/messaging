@@ -36,6 +36,8 @@ export class MessageBox extends React.Component<Props, State> {
         messages: state.messages.concat(message),
       }));
     });
+
+    this.socket.on('game_over', () => {});
   }
 
   render() {
